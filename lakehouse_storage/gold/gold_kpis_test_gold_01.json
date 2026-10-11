@@ -1,0 +1,13 @@
+{
+  "run_id": "test_gold_01",
+  "calculated_at": "2026-10-11T04:26:48.547463",
+  "total_orders": 1,
+  "total_gross_revenue": 2000.0,
+  "total_net_revenue": 1815.0,
+  "total_units_sold": 2,
+  "average_order_value": 1815.0,
+  "delivery_rate_pct": 100.0,
+  "unique_customers": 1,
+  "unique_products": 1,
+  "duration_seconds": 0.000858
+}

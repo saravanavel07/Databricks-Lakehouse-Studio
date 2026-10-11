@@ -1,0 +1,122 @@
+{
+  "run_id": "run_20261011_042113_1e3636",
+  "quarantine_count": 4,
+  "quarantined_items": [
+    {
+      "order_id": "ORD-1002",
+      "row_number": 11,
+      "reasons": [
+        "Duplicate order_id detected: ORD-1002"
+      ],
+      "raw_data": {
+        "order_id": "ORD-1002",
+        "order_date": "2026-03-01",
+        "customer_id": "CUST-202",
+        "customer_name": "Brian Patel",
+        "customer_email": "brian.p@example.com",
+        "customer_region": "Europe",
+        "product_id": "PROD-14",
+        "product_category": "Electronics",
+        "product_name": "4K Ergonomic Monitor 27in",
+        "unit_price": "349.50",
+        "quantity": "1",
+        "discount_rate": "0.00",
+        "shipping_fee": "14.50",
+        "payment_method": "PayPal",
+        "order_status": "DELIVERED",
+        "_ingestion_timestamp": "2026-10-11T04:21:13.163698",
+        "_source_file": "sample_sales.csv",
+        "_record_hash": "eb4320da96042062",
+        "_bronze_run_id": "run_20261011_042113_1e3636",
+        "_row_number": "11"
+      }
+    },
+    {
+      "order_id": "ORD-1013",
+      "row_number": 14,
+      "reasons": [
+        "Quantity must be positive integer, got -1"
+      ],
+      "raw_data": {
+        "order_id": "ORD-1013",
+        "order_date": "2026-03-07",
+        "customer_id": "CUST-212",
+        "customer_name": "Laura Dern",
+        "customer_email": "laura@example.com",
+        "customer_region": "Latin America",
+        "product_id": "PROD-25",
+        "product_category": "Accessories",
+        "product_name": "Aluminum Monitor Riser",
+        "unit_price": "39.99",
+        "quantity": "-1",
+        "discount_rate": "0.00",
+        "shipping_fee": "6.00",
+        "payment_method": "Credit Card",
+        "order_status": "DELIVERED",
+        "_ingestion_timestamp": "2026-10-11T04:21:13.163698",
+        "_source_file": "sample_sales.csv",
+        "_record_hash": "724859adb27752a5",
+        "_bronze_run_id": "run_20261011_042113_1e3636",
+        "_row_number": "14"
+      }
+    },
+    {
+      "order_id": "ORD-1014",
+      "row_number": 15,
+      "reasons": [
+        "Invalid date format for order_date: 'INVALID_DATE' (expected YYYY-MM-DD)"
+      ],
+      "raw_data": {
+        "order_id": "ORD-1014",
+        "order_date": "INVALID_DATE",
+        "customer_id": "CUST-213",
+        "customer_name": "Marcus Aurelius",
+        "customer_email": "marcus@example.com",
+        "customer_region": "Europe",
+        "product_id": "PROD-12",
+        "product_category": "Electronics",
+        "product_name": "Mechanical RGB Keyboard",
+        "unit_price": "129.99",
+        "quantity": "1",
+        "discount_rate": "0.00",
+        "shipping_fee": "11.00",
+        "payment_method": "PayPal",
+        "order_status": "DELIVERED",
+        "_ingestion_timestamp": "2026-10-11T04:21:13.163698",
+        "_source_file": "sample_sales.csv",
+        "_record_hash": "cb29638c7992ded4",
+        "_bronze_run_id": "run_20261011_042113_1e3636",
+        "_row_number": "15"
+      }
+    },
+    {
+      "order_id": "ORD-1018",
+      "row_number": 19,
+      "reasons": [
+        "Unit price must be positive, got -45.0"
+      ],
+      "raw_data": {
+        "order_id": "ORD-1018",
+        "order_date": "2026-03-09",
+        "customer_id": "CUST-217",
+        "customer_name": "Quinn Fabray",
+        "customer_email": "quinn@example.com",
+        "customer_region": "North America",
+        "product_id": "PROD-22",
+        "product_category": "Accessories",
+        "product_name": "Leather Laptop Sleeve 15in",
+        "unit_price": "-45.00",
+        "quantity": "2",
+        "discount_rate": "0.00",
+        "shipping_fee": "5.00",
+        "payment_method": "PayPal",
+        "order_status": "DELIVERED",
+        "_ingestion_timestamp": "2026-10-11T04:21:13.163698",
+        "_source_file": "sample_sales.csv",
+        "_record_hash": "2f2bbbedd99d3fd3",
+        "_bronze_run_id": "run_20261011_042113_1e3636",
+        "_row_number": "19"
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "run_id": "test_silver_01",
+  "input_bronze_count": 3,
+  "output_silver_count": 1,
+  "quarantined_count": 2,
+  "duplicates_removed": 1,
+  "invalid_types_found": 0,
+  "missing_fields_flagged": 0,
+  "out_of_range_errors": 1,
+  "duration_seconds": 0.000683,
+  "logs": [
+    "Processed 3 Bronze rows.",
+    "Deduplicated 1 duplicate order records.",
+    "Quarantined 2 invalid rows.",
+    "Promoted 1 cleansed records to Silver layer."
+  ]
+}

@@ -1,0 +1,10 @@
+product_id,product_name,category,units_sold,gross_revenue,order_count
+PROD-50,Electric Standing Desk,Furniture,4,1920.0,3
+PROD-10,Pro ANC Wireless Headphones,Electronics,9,1799.91,4
+PROD-14,4K Ergonomic Monitor 27in,Electronics,4,1398.0,3
+PROD-40,Portable 2TB NVMe SSD,Storage,7,1113.0,3
+PROD-30,Ergonomic Mesh Chair,Office Supplies,3,660.0,2
+PROD-12,Mechanical RGB Keyboard,Electronics,5,649.95,2
+PROD-15,USB-C Docking Hub Triple Display,Electronics,5,445.0,2
+PROD-32,High-Yield Toner Cartridge,Office Supplies,5,375.0,1
+PROD-22,Leather Laptop Sleeve 15in,Accessories,1,45.0,1

@@ -1,0 +1,2 @@
+order_id,order_date,customer_id,customer_name,customer_email,customer_region,product_id,product_category,product_name,unit_price,quantity,discount_rate,shipping_fee,payment_method,order_status,_ingestion_timestamp,_source_file,_record_hash,_bronze_run_id,_row_number
+ORD-901,2026-03-01,CUST-1,Test User,test@test.com,North America,PROD-1,Electronics,Gadget,100.00,1,0.00,5.00,Credit Card,DELIVERED,2026-10-11T04:26:48.525507,test_sales.csv,d2b01123df6eb777,test_run_01,1

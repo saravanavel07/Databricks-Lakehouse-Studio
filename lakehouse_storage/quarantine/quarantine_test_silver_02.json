@@ -1,0 +1,60 @@
+{
+  "run_id": "test_silver_02",
+  "quarantine_count": 2,
+  "quarantined_items": [
+    {
+      "order_id": "ORD-1",
+      "row_number": 2,
+      "reasons": [
+        "Duplicate order_id detected: ORD-1"
+      ],
+      "raw_data": {
+        "order_id": "ORD-1",
+        "order_date": "2026-03-01",
+        "customer_id": "C-1",
+        "customer_name": "Alice",
+        "customer_email": "alice@example.com",
+        "customer_region": "North America",
+        "product_id": "P-1",
+        "product_category": "Electronics",
+        "product_name": "Laptop",
+        "unit_price": "1000.00",
+        "quantity": "2",
+        "discount_rate": "0.10",
+        "shipping_fee": "15.00",
+        "payment_method": "Credit Card",
+        "order_status": "DELIVERED",
+        "_ingestion_timestamp": "2026-03-01T00:00:00",
+        "_source_file": "file.csv",
+        "_record_hash": "hash2"
+      }
+    },
+    {
+      "order_id": "ORD-2",
+      "row_number": 3,
+      "reasons": [
+        "Quantity must be positive integer, got -1"
+      ],
+      "raw_data": {
+        "order_id": "ORD-2",
+        "order_date": "2026-03-02",
+        "customer_id": "C-2",
+        "customer_name": "Bob",
+        "customer_email": "bob@example.com",
+        "customer_region": "Europe",
+        "product_id": "P-2",
+        "product_category": "Accessories",
+        "product_name": "Mouse",
+        "unit_price": "50.00",
+        "quantity": "-1",
+        "discount_rate": "0.00",
+        "shipping_fee": "5.00",
+        "payment_method": "PayPal",
+        "order_status": "DELIVERED",
+        "_ingestion_timestamp": "2026-03-02T00:00:00",
+        "_source_file": "file.csv",
+        "_record_hash": "hash3"
+      }
+    }
+  ]
+}

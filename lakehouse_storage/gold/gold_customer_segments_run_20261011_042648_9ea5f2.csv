@@ -1,0 +1,21 @@
+customer_id,customer_name,region,orders_count,total_lifetime_spend,items_purchased,segment_tier
+CUST-214,Nadia Ali,Middle East,1,904.0,2,VIP
+CUST-220,Thomas Shelby,Europe,1,824.96,5,VIP
+CUST-209,Ian Malcolm,Europe,1,684.05,2,VIP
+CUST-201,Alice Chen,North America,2,573.47,4,Growth
+CUST-208,Hannah Abbott,North America,1,516.8,4,Growth
+CUST-205,Emma Watson,Europe,1,515.0,1,Growth
+CUST-222,Victor Stone,North America,1,515.0,1,Growth
+CUST-219,Sara Lance,North America,1,404.0,2,Growth
+CUST-218,Rajesh Koothrappali,Asia Pacific,1,371.5,1,Growth
+CUST-202,Brian Patel,Europe,1,364.0,1,Growth
+CUST-210,Julia Roberts,North America,1,350.0,5,Growth
+CUST-204,David Kim,Asia Pacific,1,343.47,3,Growth
+CUST-223,Wanda Maximoff,Europe,1,311.1,2,Growth
+CUST-221,Uma Thurman,North America,1,269.98,2,Growth
+CUST-216,Patricia Hill,Europe,1,261.65,3,Growth
+CUST-203,Carla Gomez,Latin America,1,223.0,1,Standard
+CUST-207,George Clark,Middle East,1,217.99,1,Standard
+CUST-211,Kenji Sato,Asia Pacific,1,214.99,1,Standard
+CUST-215,Oliver Queen,North America,1,166.5,1,Standard
+CUST-206,Fiona Gallagher,North America,1,49.99,1,Standard

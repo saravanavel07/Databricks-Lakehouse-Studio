@@ -1,0 +1,137 @@
+{
+  "run_id": "run_20261011_042202_3fa4f5",
+  "evaluated_at": "2026-10-11T04:22:02.587684",
+  "duration_seconds": 0.000778,
+  "overall_score": 80.4,
+  "score_formula": "QualityScore = Sum(Weight_i * Multiplier_i) / Sum(Weight_i) * 100 [Pass: 1.0, Warn: 0.6, Fail: 0.0]",
+  "status": "WARNING",
+  "total_checks": 11,
+  "passed_checks": 6,
+  "warning_checks": 5,
+  "failed_checks": 0,
+  "total_records_evaluated": 25,
+  "quarantined_records_count": 4,
+  "checks": [
+    {
+      "check_id": "CHK_01_SCHEMA_MATCH",
+      "name": "Schema Structure & Column Presence",
+      "category": "Schema",
+      "weight": 10,
+      "status": "PASSED",
+      "description": "Verifies all required medallion columns exist in source payload.",
+      "actual_value": "20/15 columns present",
+      "failed_count": 0,
+      "remediation": "None"
+    },
+    {
+      "check_id": "CHK_02_PRIMARY_KEY_NULLS",
+      "name": "Primary Key Completeness (order_id)",
+      "category": "Completeness",
+      "weight": 10,
+      "status": "PASSED",
+      "description": "Ensures every record carries a mandatory non-null order identifier.",
+      "actual_value": "0 null IDs detected",
+      "failed_count": 0,
+      "remediation": "None"
+    },
+    {
+      "check_id": "CHK_03_DUPLICATE_RECORDS",
+      "name": "Record Uniqueness & Deduplication",
+      "category": "Uniqueness",
+      "weight": 10,
+      "status": "WARNING",
+      "description": "Validates there are no redundant transactions with identical order IDs.",
+      "actual_value": "1 duplicate occurrences",
+      "failed_count": 1,
+      "remediation": "Apply idempotent deduplication windowing in Silver transformation layer."
+    },
+    {
+      "check_id": "CHK_04_DATA_TYPE_CONFORMITY",
+      "name": "Data Type Conformity (unit_price)",
+      "category": "Validity",
+      "weight": 8,
+      "status": "PASSED",
+      "description": "Verifies unit prices are parseable as floating point decimals.",
+      "actual_value": "0 unparseable values",
+      "failed_count": 0,
+      "remediation": "None"
+    },
+    {
+      "check_id": "CHK_05_OUT_OF_RANGE_VALUES",
+      "name": "Numerical Range Boundaries (qty & price > 0)",
+      "category": "Validity",
+      "weight": 10,
+      "status": "WARNING",
+      "description": "Protects analytical models against negative orders or return anomalies.",
+      "actual_value": "2 records out-of-bounds",
+      "failed_count": 2,
+      "remediation": "Route negative transactions to a specialized returns/reversal dataset."
+    },
+    {
+      "check_id": "CHK_06_DATE_FORMAT_INTEGRITY",
+      "name": "Temporal Format & Validity (ISO-8601)",
+      "category": "Validity",
+      "weight": 8,
+      "status": "WARNING",
+      "description": "Verifies all transaction timestamps adhere to ISO-8601 YYYY-MM-DD standard.",
+      "actual_value": "1 invalid date records",
+      "failed_count": 1,
+      "remediation": "Use robust date-time fuzzy parser with fallback to ingestion timestamp."
+    },
+    {
+      "check_id": "CHK_07_NULL_VALUE_RATES",
+      "name": "Field Completeness (customer_email)",
+      "category": "Completeness",
+      "weight": 6,
+      "status": "WARNING",
+      "description": "Tracks missing contact information affecting customer master resolution.",
+      "actual_value": "1 missing (4.0%)",
+      "failed_count": 1,
+      "remediation": "Impute synthetic customer identifier or join with master CRM directory."
+    },
+    {
+      "check_id": "CHK_08_BUSINESS_RULES",
+      "name": "Discount Rate Policy (0% - 100%)",
+      "category": "Business Rule",
+      "weight": 8,
+      "status": "PASSED",
+      "description": "Verifies applied promotional discount percentages stay within operational caps.",
+      "actual_value": "0 invalid discounts",
+      "failed_count": 0,
+      "remediation": "None"
+    },
+    {
+      "check_id": "CHK_09_DOMAIN_INTEGRITY",
+      "name": "Geographic Domain Conformance",
+      "category": "Consistency",
+      "weight": 8,
+      "status": "PASSED",
+      "description": "Ensures delivery territories match sanctioned international corporate regions.",
+      "actual_value": "0 unassigned territories",
+      "failed_count": 0,
+      "remediation": "None"
+    },
+    {
+      "check_id": "CHK_10_DATA_FRESHNESS",
+      "name": "Audit Lineage & Freshness Metadata",
+      "category": "Freshness",
+      "weight": 6,
+      "status": "PASSED",
+      "description": "Confirms every incoming row was stamped with verifiable pipeline ingestion time.",
+      "actual_value": "Ingestion audit stamps verified",
+      "failed_count": 0,
+      "remediation": "None"
+    },
+    {
+      "check_id": "CHK_11_ROW_COUNT_DRIFT",
+      "name": "Medallion Promotion & Quarantine Rate",
+      "category": "Integrity",
+      "weight": 14,
+      "status": "WARNING",
+      "description": "Quantifies proportion of raw input promoted to Silver vs quarantined for defects.",
+      "actual_value": "21/25 promoted (16.0% quarantined)",
+      "failed_count": 4,
+      "remediation": "Inspect quarantine logs to triage high defect volumes."
+    }
+  ]
+}

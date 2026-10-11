@@ -1,0 +1,2 @@
+order_id,order_date,customer_id,customer_name,_email_missing,_email_invalid_format,customer_email,customer_region,product_id,product_category,product_name,unit_price,quantity,discount_rate,shipping_fee,line_gross_amount,line_discount_amount,line_net_amount,order_status,payment_method,_silver_processed_at,_silver_run_id
+ORD-1,2026-03-01,C-1,Alice,False,False,alice@example.com,North America,P-1,Electronics,Laptop,1000.0,2,0.1,15.0,2000.0,200.0,1815.0,DELIVERED,Credit Card,2026-10-11T04:26:48.548299,test_silver_01

@@ -1,0 +1,13 @@
+{
+  "run_id": "run_20261011_042648_9ea5f2",
+  "calculated_at": "2026-10-11T04:26:48.538087",
+  "total_orders": 21,
+  "total_gross_revenue": 8405.86,
+  "total_net_revenue": 8081.45,
+  "total_units_sold": 43,
+  "average_order_value": 384.83,
+  "delivery_rate_pct": 90.5,
+  "unique_customers": 20,
+  "unique_products": 9,
+  "duration_seconds": 0.001337
+}

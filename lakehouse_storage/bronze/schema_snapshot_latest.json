@@ -1,0 +1,24 @@
+{
+  "snapshot_timestamp": "2026-10-11T04:26:48.529365",
+  "source_file": "sample_sales.csv",
+  "column_count": 15,
+  "columns": [
+    "order_id",
+    "order_date",
+    "customer_id",
+    "customer_name",
+    "customer_email",
+    "customer_region",
+    "product_id",
+    "product_category",
+    "product_name",
+    "unit_price",
+    "quantity",
+    "discount_rate",
+    "shipping_fee",
+    "payment_method",
+    "order_status"
+  ],
+  "record_count": 25,
+  "run_id": "run_20261011_042648_9ea5f2"
+}

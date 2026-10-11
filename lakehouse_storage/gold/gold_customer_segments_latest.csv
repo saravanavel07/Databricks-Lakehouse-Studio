@@ -1,0 +1,2 @@
+customer_id,customer_name,region,orders_count,total_lifetime_spend,items_purchased,segment_tier
+C-1,Alice,North America,1,1815.0,2,VIP
