@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 280" role="img" aria-labelledby="title desc">
+  <title id="title">Animated lakehouse data flow</title>
+  <desc id="desc">Glowing data packets move from Bronze through Silver to Gold in a connected lakehouse pipeline.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111827"/><stop offset="1" stop-color="#1f2937"/>
+    </linearGradient>
+    <linearGradient id="track" x1="0" x2="1">
+      <stop stop-color="#ff3621"/><stop offset=".52" stop-color="#f59e0b"/><stop offset="1" stop-color="#eab308"/>
+    </linearGradient>
+    <filter id="glow" x="-200%" y="-200%" width="500%" height="500%">
+      <feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <style>
+      text{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+      .route{fill:none;stroke:#64748b;stroke-width:2;stroke-dasharray:5 9;opacity:.65}
+      .flow{fill:none;stroke:url(#track);stroke-width:3;stroke-linecap:round;stroke-dasharray:2 16;animation:travel 2.8s linear infinite}
+      .node{transform-box:fill-box;transform-origin:center;animation:breathe 3s ease-in-out infinite}
+      .node:nth-of-type(2){animation-delay:.45s}.node:nth-of-type(3){animation-delay:.9s}
+      .packet{filter:url(#glow);animation:packet 5s cubic-bezier(.45,0,.55,1) infinite;}
+      .packet.p2{animation-delay:1.6s}.packet.p3{animation-delay:3.2s}
+      @keyframes travel{to{stroke-dashoffset:-72}}
+      @keyframes breathe{0%,100%{transform:scale(1);opacity:.88}50%{transform:scale(1.09);opacity:1}}
+      @keyframes packet{0%{transform:translateX(0);opacity:0}8%{opacity:1}90%{opacity:1}100%{transform:translateX(650px);opacity:0}}
+      @media(prefers-reduced-motion:reduce){.flow,.node,.packet{animation:none}.packet{display:none}}
+    </style>
+  </defs>
+  <rect width="960" height="280" rx="24" fill="url(#bg)"/>
+  <circle cx="110" cy="30" r="100" fill="#ff3621" opacity=".06"/><circle cx="860" cy="260" r="130" fill="#eab308" opacity=".06"/>
+  <text x="44" y="54" fill="#f8fafc" font-size="20" font-weight="700">LIVE LAKEHOUSE DATA FLOW</text>
+  <text x="44" y="78" fill="#94a3b8" font-size="12">From raw records to trusted analytics</text>
+  <path class="route" d="M155 155H805"/><path class="flow" d="M155 155H805"/>
+  <g class="node"><circle cx="155" cy="155" r="34" fill="#ff3621" opacity=".14"/><circle cx="155" cy="155" r="23" fill="#111827" stroke="#ff3621" stroke-width="2"/><text x="155" y="160" fill="#fff" font-size="13" font-weight="700" text-anchor="middle">B</text><text x="155" y="211" fill="#fca5a5" font-size="14" font-weight="600" text-anchor="middle">BRONZE</text><text x="155" y="230" fill="#94a3b8" font-size="11" text-anchor="middle">Raw data</text></g>
+  <g class="node"><circle cx="480" cy="155" r="34" fill="#f59e0b" opacity=".14"/><circle cx="480" cy="155" r="23" fill="#111827" stroke="#f59e0b" stroke-width="2"/><text x="480" y="160" fill="#fff" font-size="13" font-weight="700" text-anchor="middle">S</text><text x="480" y="211" fill="#fcd34d" font-size="14" font-weight="600" text-anchor="middle">SILVER</text><text x="480" y="230" fill="#94a3b8" font-size="11" text-anchor="middle">Clean &amp; validate</text></g>
+  <g class="node"><circle cx="805" cy="155" r="34" fill="#eab308" opacity=".14"/><circle cx="805" cy="155" r="23" fill="#111827" stroke="#eab308" stroke-width="2"/><text x="805" y="160" fill="#fff" font-size="13" font-weight="700" text-anchor="middle">G</text><text x="805" y="211" fill="#fde047" font-size="14" font-weight="600" text-anchor="middle">GOLD</text><text x="805" y="230" fill="#94a3b8" font-size="11" text-anchor="middle">Analytics-ready</text></g>
+  <circle class="packet" cx="155" cy="155" r="5" fill="#fff"/><circle class="packet p2" cx="155" cy="155" r="4" fill="#fbbf24"/><circle class="packet p3" cx="155" cy="155" r="4" fill="#fb7185"/>
+</svg>

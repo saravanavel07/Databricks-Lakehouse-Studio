@@ -17,9 +17,9 @@
 
 ## Overview
 
-Databricks Lakehouse Studio is a **portfolio and learning project** that brings a sample data-engineering workflow and an interactive dashboard together. It demonstrates how sales records can move through the **Bronze → Silver → Gold** layers, with pipeline orchestration, data-quality checks, quarantine handling, local analytics, and governance concepts presented in a single workspace.
+Databricks Lakehouse Studio is a **portfolio and learning project** that brings a sample data-engineering workflow and an interactive dashboard together. It demonstrates how sales records can move through Bronze, Silver, and Gold layers, with pipeline execution, data-quality checks, and analytics in a studio-style interface.
 
-The repository combines Python data-pipeline modules with a React/TypeScript interface. The lakehouse workflow is implemented as a local demonstration; **the repository should not be mistaken for a deployed Databricks workspace or a production-ready cloud service**.
+The repository combines Python data-pipeline modules with a React/TypeScript interface. The lakehouse workflow is implemented as a local demonstration; it is not, by itself, a production Databricks deployment.
 
 ## Highlights
 
@@ -31,9 +31,15 @@ The repository combines Python data-pipeline modules with a React/TypeScript int
 - **AI-assisted insights concept:** the interface supports an optional AI path and a deterministic fallback; configure external credentials securely before enabling any provider.
 - **Live motion background:** a custom Canvas particle network visualizes flowing data and responds to pipeline activity. Motion intensity is adjustable, and the animation respects the browser's reduced-motion preference.
 
-## Live motion: what powers it?
+## Live animation preview
 
-The animated background is implemented in **`src/components/ParticleCanvas.tsx`** with the browser's **HTML Canvas 2D API** and `requestAnimationFrame`—it does not require a separate animation library. Floating nodes and connecting filaments form a subtle network, while small packets travel along links to suggest data movement. The effect becomes more vivid while a pipeline is running, responds gently to pointer movement, and can be reduced or disabled from the workspace settings. It also checks `prefers-reduced-motion` and skips the animation for users who request less motion.
+The animated diagram below brings the Bronze → Silver → Gold journey to life right here in the README. Glowing packets travel along the pipeline while the layer nodes gently pulse; the animation also turns off when reduced motion is requested.
+
+<p align="center">
+  <img src="assets/lakehouse-motion.svg" alt="Animated lakehouse data flow from Bronze to Silver to Gold" width="100%" />
+</p>
+
+The interactive application background is implemented in [`src/components/ParticleCanvas.tsx`](src/components/ParticleCanvas.tsx) with the browser's HTML Canvas 2D API and `requestAnimationFrame`. The SVG above is a lightweight README preview; it does not replace the app's interactive canvas.
 
 ## Architecture
 
@@ -83,7 +89,7 @@ The Python implementation is organized by responsibility under `src/`:
 - **Data layout:** CSV and JSON files in `lakehouse_storage/`
 - **Data platform concepts:** Databricks Lakehouse and Medallion architecture
 
-> The repository language breakdown is approximately **50.4% Python, 49.1% TypeScript, and 0.5% CSS**. Databricks is the inspiration and target platform concept; the checked-in sample pipeline uses local project code and storage.
+> The repository language breakdown is approximately **50.4% Python, 49.1% TypeScript, and 0.5% CSS**. Databricks is the inspiration and target platform concept; the checked-in sample pipeline uses local components unless separately configured.
 
 ## Repository contents
 
@@ -99,7 +105,7 @@ The Python implementation is organized by responsibility under `src/`:
 
 ### Requirements
 
-- Python 3.10 or later is recommended (the interface currently labels its runtime Python 3.10).
+- Python 3.10 or later is recommended.
 - A Node.js toolchain is needed to build or serve the React interface once the frontend package configuration is available.
 
 ### Python workflow
@@ -131,7 +137,7 @@ python -m unittest discover -s tests -v
 
 ### Current repository setup note
 
-The checked-in tree currently does not include a root-level `config.py`, a sample input-data directory, a Python dependency manifest, or a frontend `package.json`/lockfile and API server entry point. The pipeline runner imports `config`, and the dashboard calls `/api/...` endpoints. As a result, **a clean checkout may need those runtime/configuration pieces supplied or completed before the pipeline and full web dashboard can run end to end**. The README intentionally does not claim an npm command, live deployment URL, or verified install process that is not present in the repository.
+The checked-in tree currently does not include a root-level `config.py`, a sample input-data directory, a Python dependency manifest, or a frontend `package.json`/lockfile and API server entry point. You may need to supply or configure these pieces before the full pipeline and dashboard can run end to end.
 
 ## Tests
 
