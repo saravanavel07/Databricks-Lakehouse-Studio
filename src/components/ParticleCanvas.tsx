@@ -5,230 +5,227 @@ interface ParticleCanvasProps {
   isRunning?: boolean;
 }
 
+interface Particle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  radius: number;
+  phase: number;
+  accent: boolean;
+}
+
+interface DataPacket {
+  from: number;
+  to: number;
+  progress: number;
+  speed: number;
+}
+
 export const ParticleCanvas: React.FC<ParticleCanvasProps> = ({ intensity = 50, isRunning = false }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || intensity <= 0) {
-      return;
-    }
-
     const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    if (!canvas || intensity <= 0) return;
 
-    let animationFrameId: number;
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (motionPreference.matches) return;
 
+    const context = canvas.getContext('2d');
+    if (!context) return;
+
+    let frameId = 0;
+    let width = 0;
+    let height = 0;
+    let tick = 0;
     let mouseX = -1000;
     let mouseY = -1000;
+    const density = intensity / 50;
+    const particles: Particle[] = [];
+    const packets: DataPacket[] = [];
 
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
+    resize();
 
-    const handleMouseLeave = () => {
+    const particleCount = Math.max(18, Math.min(48, Math.floor((width * height) / 26000 * density)));
+    for (let i = 0; i < particleCount; i++) {
+      const accent = Math.random() > 0.68;
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() * 0.5 + 0.12) * (isRunning ? 1.8 : 1) * density,
+        vy: (Math.random() - 0.5) * 0.4 * density,
+        radius: Math.random() * 2 + 1.2,
+        phase: Math.random() * Math.PI * 2,
+        accent
+      });
+    }
+
+    const packetCount = Math.max(8, Math.floor(particleCount * 0.85));
+    for (let i = 0; i < packetCount; i++) {
+      packets.push({
+        from: Math.floor(Math.random() * particleCount),
+        to: Math.floor(Math.random() * particleCount),
+        progress: Math.random(),
+        speed: (0.003 + Math.random() * 0.006) * density * (isRunning ? 1.8 : 1)
+      });
+    }
+
+    const moveMouse = (event: MouseEvent) => {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+    };
+    const leaveWindow = () => {
       mouseX = -1000;
       mouseY = -1000;
     };
 
-    const handleResize = () => {
-      if (!canvas) return;
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    };
+    const draw = () => {
+      if (document.hidden) {
+        frameId = requestAnimationFrame(draw);
+        return;
+      }
 
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseleave', handleMouseLeave);
+      tick += 1;
+      context.clearRect(0, 0, width, height);
+      const connectionDistance = width > 768 ? 170 : 100;
 
-    // Number of interactive floating nodes
-    const densityFactor = intensity / 50;
-    const nodeCount = Math.max(16, Math.min(36, Math.floor((width * height) / 28000 * densityFactor)));
-
-    interface NodeParticle {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      baseRadius: number;
-      radius: number;
-      color: string;
-      phase: number;
-      isAccent: boolean;
-    }
-
-    interface FlowingPacket {
-      sourceIdx: number;
-      targetIdx: number;
-      progress: number;
-      speed: number;
-    }
-
-    const particles: NodeParticle[] = [];
-    const colors = [
-      'rgba(255, 54, 33, 0.45)',  // Databricks Flame Red
-      'rgba(245, 158, 11, 0.40)', // Bronze Amber
-      'rgba(148, 163, 184, 0.35)',// Silver Slate
-      'rgba(234, 179, 8, 0.45)'   // Gold Yellow
-    ];
-
-    for (let i = 0; i < nodeCount; i++) {
-      const isAccent = Math.random() > 0.65;
-      const r = Math.random() * 2.2 + 1.2;
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        // Continuous gentle forward flow (drifting rightward like data flowing through pipeline)
-        vx: (Math.random() * 0.45 + 0.1) * (isRunning ? 1.6 : 1.0) * densityFactor,
-        vy: (Math.random() - 0.5) * 0.35 * (isRunning ? 1.5 : 1.0) * densityFactor,
-        baseRadius: r,
-        radius: r,
-        color: isAccent ? 'rgba(255, 54, 33, 0.55)' : colors[Math.floor(Math.random() * colors.length)],
-        phase: Math.random() * Math.PI * 2,
-        isAccent
-      });
-    }
-
-    // Packets that continuously travel along node connection links
-    const packets: FlowingPacket[] = [];
-    for (let i = 0; i < Math.floor(nodeCount * 0.7); i++) {
-      packets.push({
-        sourceIdx: Math.floor(Math.random() * nodeCount),
-        targetIdx: Math.floor(Math.random() * nodeCount),
-        progress: Math.random(),
-        speed: (Math.random() * 0.008 + 0.004) * (isRunning ? 2.0 : 1.0) * densityFactor
-      });
-    }
-
-    let tick = 0;
-
-    const render = () => {
-      tick++;
-      ctx.clearRect(0, 0, width, height);
-
-      // 1. Draw connecting data filaments
-      const maxConnectDist = width > 768 ? 160 : 90;
+      // Fine, gently shimmering links between nearby data nodes.
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+          const a = particles[i];
+          const b = particles[j];
+          const distance = Math.hypot(a.x - b.x, a.y - b.y);
+          if (distance >= connectionDistance) continue;
 
-          if (dist < maxConnectDist) {
-            const edgeRatio = 1 - dist / maxConnectDist;
-            const alpha = edgeRatio * (isRunning ? 0.28 : 0.16) * densityFactor;
-
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = isRunning
-              ? `rgba(255, 54, 33, ${alpha})`
-              : (particles[i].isAccent || particles[j].isAccent)
-              ? `rgba(255, 54, 33, ${alpha * 0.8})`
-              : `rgba(203, 213, 225, ${alpha * 1.2})`;
-            ctx.lineWidth = edgeRatio * (isRunning ? 1.4 : 0.95);
-            ctx.stroke();
-          }
+          const strength = 1 - distance / connectionDistance;
+          const shimmer = 0.78 + Math.sin(tick * 0.025 + a.phase) * 0.22;
+          const alpha = strength * (isRunning ? 0.32 : 0.19) * density * shimmer;
+          context.beginPath();
+          context.moveTo(a.x, a.y);
+          context.lineTo(b.x, b.y);
+          context.strokeStyle = isRunning || a.accent || b.accent
+            ? `rgba(255, 54, 33, ${alpha})`
+            : `rgba(148, 163, 184, ${alpha})`;
+          context.lineWidth = strength * (isRunning ? 1.5 : 1);
+          context.stroke();
         }
       }
 
-      // 2. Draw live flowing data packets travelling between nearby nodes
+      // Bright packets glide along the network, with a short luminous tail.
       for (const packet of packets) {
         packet.progress += packet.speed;
         if (packet.progress >= 1) {
           packet.progress = 0;
-          packet.sourceIdx = Math.floor(Math.random() * particles.length);
-          // pick a target within connection range
-          let bestTarget = (packet.sourceIdx + 1) % particles.length;
-          let bestDist = 9999;
-          for (let k = 0; k < particles.length; k++) {
-            if (k === packet.sourceIdx) continue;
-            const d = Math.hypot(particles[packet.sourceIdx].x - particles[k].x, particles[packet.sourceIdx].y - particles[k].y);
-            if (d < maxConnectDist && d < bestDist) {
-              bestDist = d;
-              bestTarget = k;
+          packet.from = Math.floor(Math.random() * particles.length);
+          let nearest = (packet.from + 1) % particles.length;
+          let nearestDistance = connectionDistance;
+          for (let i = 0; i < particles.length; i++) {
+            if (i === packet.from) continue;
+            const distance = Math.hypot(
+              particles[packet.from].x - particles[i].x,
+              particles[packet.from].y - particles[i].y
+            );
+            if (distance < nearestDistance) {
+              nearest = i;
+              nearestDistance = distance;
             }
           }
-          packet.targetIdx = bestTarget;
+          packet.to = nearest;
         }
 
-        const p1 = particles[packet.sourceIdx];
-        const p2 = particles[packet.targetIdx];
-        if (p1 && p2) {
-          const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
-          if (dist < maxConnectDist) {
-            const px = p1.x + (p2.x - p1.x) * packet.progress;
-            const py = p1.y + (p2.y - p1.y) * packet.progress;
+        const start = particles[packet.from];
+        const end = particles[packet.to];
+        if (!start || !end || Math.hypot(start.x - end.x, start.y - end.y) >= connectionDistance) continue;
 
-            // Draw glowing packet
-            ctx.beginPath();
-            ctx.arc(px, py, 1.8, 0, Math.PI * 2);
-            ctx.fillStyle = isRunning ? 'rgba(255, 54, 33, 0.9)' : 'rgba(245, 158, 11, 0.75)';
-            ctx.fill();
-
-            // Glow aura
-            ctx.beginPath();
-            ctx.arc(px, py, 4.5, 0, Math.PI * 2);
-            ctx.fillStyle = isRunning ? 'rgba(255, 54, 33, 0.25)' : 'rgba(255, 180, 50, 0.15)';
-            ctx.fill();
-          }
-        }
+        const x = start.x + (end.x - start.x) * packet.progress;
+        const y = start.y + (end.y - start.y) * packet.progress;
+        const tailX = start.x + (end.x - start.x) * Math.max(0, packet.progress - 0.09);
+        const tailY = start.y + (end.y - start.y) * Math.max(0, packet.progress - 0.09);
+        const trail = context.createLinearGradient(tailX, tailY, x, y);
+        trail.addColorStop(0, 'rgba(255, 54, 33, 0)');
+        trail.addColorStop(1, isRunning ? 'rgba(255, 54, 33, 0.8)' : 'rgba(245, 158, 11, 0.75)');
+        context.beginPath();
+        context.moveTo(tailX, tailY);
+        context.lineTo(x, y);
+        context.strokeStyle = trail;
+        context.lineWidth = 2;
+        context.stroke();
+        context.beginPath();
+        context.arc(x, y, isRunning ? 2.4 : 1.9, 0, Math.PI * 2);
+        context.fillStyle = '#fff7ed';
+        context.shadowBlur = 12;
+        context.shadowColor = isRunning ? '#ff3621' : '#f59e0b';
+        context.fill();
+        context.shadowBlur = 0;
       }
 
-      // 3. Update & render node particles
-      for (const p of particles) {
-        p.x += p.vx;
-        p.y += p.vy;
+      // Floating nodes gently breathe and respond to the pointer.
+      for (const particle of particles) {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
 
-        // Subtle breathing radius
-        const breath = Math.sin(tick * 0.04 + p.phase) * 0.6;
-        p.radius = Math.max(0.8, p.baseRadius + breath);
-
-        // Soft mouse repulsion/gravitation
-        const mdx = p.x - mouseX;
-        const mdy = p.y - mouseY;
-        const mDist = Math.hypot(mdx, mdy);
-        if (mDist < 120 && mDist > 0) {
-          const force = (1 - mDist / 120) * 0.6;
-          p.x += (mdx / mDist) * force;
-          p.y += (mdy / mDist) * force;
+        const dx = particle.x - mouseX;
+        const dy = particle.y - mouseY;
+        const distance = Math.hypot(dx, dy);
+        if (distance < 125 && distance > 0) {
+          const force = (1 - distance / 125) * 0.75;
+          particle.x += (dx / distance) * force;
+          particle.y += (dy / distance) * force;
         }
 
-        // Horizontal wrap (flows smoothly off right edge and re-enters on left)
-        if (p.x > width + 20) p.x = -20;
-        if (p.x < -20) p.x = width + 20;
-        if (p.y > height + 20) p.y = -20;
-        if (p.y < -20) p.y = height + 20;
+        if (particle.x > width + 20) particle.x = -20;
+        if (particle.x < -20) particle.x = width + 20;
+        if (particle.y > height + 20) particle.y = -20;
+        if (particle.y < -20) particle.y = height + 20;
 
-        // Outer glow halo for accent nodes
-        if (p.isAccent || isRunning) {
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.radius * 2.8, 0, Math.PI * 2);
-          ctx.fillStyle = isRunning ? 'rgba(255, 54, 33, 0.15)' : 'rgba(255, 54, 33, 0.08)';
-          ctx.fill();
+        const pulse = (Math.sin(tick * 0.045 + particle.phase) + 1) / 2;
+        const radius = particle.radius + pulse * 0.8;
+        const color = isRunning || particle.accent ? '255, 54, 33' : '245, 158, 11';
+
+        // Expanding rings make active/accent nodes feel like live pipeline signals.
+        if (particle.accent || isRunning) {
+          const ringRadius = radius + 3 + pulse * 8;
+          context.beginPath();
+          context.arc(particle.x, particle.y, ringRadius, 0, Math.PI * 2);
+          context.strokeStyle = `rgba(${color}, ${(1 - pulse) * (isRunning ? 0.24 : 0.12)})`;
+          context.lineWidth = 1;
+          context.stroke();
         }
 
-        // Core circle
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = isRunning ? 'rgba(255, 54, 33, 0.85)' : p.color;
-        ctx.fill();
+        context.beginPath();
+        context.arc(particle.x, particle.y, radius * 2.7, 0, Math.PI * 2);
+        context.fillStyle = `rgba(${color}, ${isRunning ? 0.13 : 0.07})`;
+        context.fill();
+        context.beginPath();
+        context.arc(particle.x, particle.y, radius, 0, Math.PI * 2);
+        context.fillStyle = `rgba(${color}, ${isRunning ? 0.88 : particle.accent ? 0.72 : 0.42})`;
+        context.fill();
       }
 
-      animationFrameId = requestAnimationFrame(render);
+      frameId = requestAnimationFrame(draw);
     };
 
-    render();
+    window.addEventListener('resize', resize);
+    window.addEventListener('mousemove', moveMouse, { passive: true });
+    document.addEventListener('mouseleave', leaveWindow);
+    frameId = requestAnimationFrame(draw);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseleave', handleMouseLeave);
-      cancelAnimationFrame(animationFrameId);
+      cancelAnimationFrame(frameId);
+      window.removeEventListener('resize', resize);
+      window.removeEventListener('mousemove', moveMouse);
+      document.removeEventListener('mouseleave', leaveWindow);
     };
   }, [intensity, isRunning]);
 
