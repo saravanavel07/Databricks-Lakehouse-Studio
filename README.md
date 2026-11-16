@@ -9,7 +9,6 @@
 [![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-React-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Architecture](https://img.shields.io/badge/Architecture-Medallion-FF3621)](#-architecture)
-[![License](https://img.shields.io/badge/License-Not%20specified-lightgrey)](#-license)
 
 </div>
 
@@ -17,7 +16,7 @@
 
 ## Overview
 
-Databricks Lakehouse Studio is a **portfolio and learning project** that brings a sample data-engineering workflow and an interactive dashboard together. It demonstrates how sales records can move through Bronze, Silver, and Gold layers, with pipeline execution, data-quality checks, and analytics in a studio-style interface.
+Databricks Lakehouse Studio is a **portfolio and learning project** that brings a sample data-engineering workflow and an interactive dashboard together. It demonstrates how sales records can move through Bronze, Silver, and Gold layers, with pipeline status, quality checks, lineage, governance concepts, and analytics surfaced in one interface.
 
 The repository combines Python data-pipeline modules with a React/TypeScript interface. The lakehouse workflow is implemented as a local demonstration; it is not, by itself, a production Databricks deployment.
 
@@ -33,13 +32,13 @@ The repository combines Python data-pipeline modules with a React/TypeScript int
 
 ## Live animation preview
 
-The animated diagram below brings the Bronze → Silver → Gold journey to life right here in the README. Glowing packets travel along the pipeline while the layer nodes gently pulse; the animation also turns off when reduced motion is requested.
+The animated diagram below brings the Bronze → Silver → Gold journey to life in the README. Glowing data packets travel along the pipeline, particles shimmer around the stages, and rotating radar-beam sweeps pulse from each layer node. This is a visual illustration, not a live connection to a running pipeline.
 
 <p align="center">
-  <img src="assets/lakehouse-motion.svg" alt="Animated lakehouse data flow from Bronze to Silver to Gold" width="100%" />
+  <img src="assets/lakehouse-motion.svg" alt="Animated lakehouse data flow with particles and rotating radio-beam radar effects from Bronze through Silver to Gold" width="100%" />
 </p>
 
-The interactive application background is implemented in [`src/components/ParticleCanvas.tsx`](src/components/ParticleCanvas.tsx) with the browser's HTML Canvas 2D API and `requestAnimationFrame`. The SVG above is a lightweight README preview; it does not replace the app's interactive canvas.
+The interactive application background is implemented in [`src/components/ParticleCanvas.tsx`](src/components/ParticleCanvas.tsx) with the browser's HTML Canvas 2D API and `requestAnimationFrame`. The canvas adds moving particles, glowing data packets, connecting trails, and expanding signal rings; it reacts to pointer movement and pipeline activity. Reduced-motion preferences are respected.
 
 ## Architecture
 
@@ -89,12 +88,13 @@ The Python implementation is organized by responsibility under `src/`:
 - **Data layout:** CSV and JSON files in `lakehouse_storage/`
 - **Data platform concepts:** Databricks Lakehouse and Medallion architecture
 
-> The repository language breakdown is approximately **50.4% Python, 49.1% TypeScript, and 0.5% CSS**. Databricks is the inspiration and target platform concept; the checked-in sample pipeline uses local components unless separately configured.
+> The repository language breakdown is approximately **50.4% Python, 49.1% TypeScript, and 0.5% CSS**. Databricks is the inspiration and target platform concept; the checked-in sample pipeline uses local project components.
 
 ## Repository contents
 
 ```text
 .
+├── assets/                   # Animated README lakehouse diagram
 ├── lakehouse_storage/       # Example Bronze, Silver, Gold, quarantine, and run artifacts
 ├── scripts/                 # Pipeline runner and sample-data generator
 ├── src/                     # Python pipeline modules and React/TypeScript UI
@@ -137,7 +137,7 @@ python -m unittest discover -s tests -v
 
 ### Current repository setup note
 
-The checked-in tree currently does not include a root-level `config.py`, a sample input-data directory, a Python dependency manifest, or a frontend `package.json`/lockfile and API server entry point. You may need to supply or configure these pieces before the full pipeline and dashboard can run end to end.
+The checked-in tree currently does not include a root-level `config.py`, a sample input-data directory, a Python dependency manifest, or a frontend `package.json`/lockfile and API server entry point. Review the scripts and configure the required data paths and dependencies for your environment before running the workflow.
 
 ## Tests
 
@@ -159,10 +159,6 @@ The dashboard also includes a control for running tests through its API, which r
 ## Contributing
 
 Issues and pull requests are welcome. For changes, please include a short description of the behavior, relevant tests, and any setup/configuration changes required to reproduce it.
-
-## License
-
-No license file is currently included. Unless a license is added, standard copyright restrictions apply; please contact the repository owner before reusing or distributing the code.
 
 ---
 

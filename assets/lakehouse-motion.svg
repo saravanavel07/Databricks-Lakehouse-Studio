@@ -1,37 +1,71 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 280" role="img" aria-labelledby="title desc">
-  <title id="title">Animated lakehouse data flow</title>
-  <desc id="desc">Glowing data packets move from Bronze through Silver to Gold in a connected lakehouse pipeline.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 320" role="img" aria-labelledby="title desc">
+  <title id="title">Animated lakehouse data flow with radio-beam particles</title>
+  <desc id="desc">Bright data packets and floating particles travel from Bronze through Silver to Gold. Radar-like radio beams sweep around each layer.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#111827"/><stop offset="1" stop-color="#1f2937"/>
+      <stop offset="0" stop-color="#080d1b"/><stop offset=".55" stop-color="#111827"/><stop offset="1" stop-color="#1e1b4b"/>
     </linearGradient>
     <linearGradient id="track" x1="0" x2="1">
-      <stop stop-color="#ff3621"/><stop offset=".52" stop-color="#f59e0b"/><stop offset="1" stop-color="#eab308"/>
+      <stop stop-color="#ff3621"/><stop offset=".52" stop-color="#f59e0b"/><stop offset="1" stop-color="#a3e635"/>
+    </linearGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#60a5fa" stop-opacity=".48"/><stop offset="1" stop-color="#60a5fa" stop-opacity="0"/>
     </linearGradient>
     <filter id="glow" x="-200%" y="-200%" width="500%" height="500%">
       <feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
+    <filter id="softGlow" x="-200%" y="-200%" width="500%" height="500%">
+      <feGaussianBlur stdDeviation="10" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
     <style>
       text{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
       .route{fill:none;stroke:#64748b;stroke-width:2;stroke-dasharray:5 9;opacity:.65}
-      .flow{fill:none;stroke:url(#track);stroke-width:3;stroke-linecap:round;stroke-dasharray:2 16;animation:travel 2.8s linear infinite}
-      .node{transform-box:fill-box;transform-origin:center;animation:breathe 3s ease-in-out infinite}
-      .node:nth-of-type(2){animation-delay:.45s}.node:nth-of-type(3){animation-delay:.9s}
-      .packet{filter:url(#glow);animation:packet 5s cubic-bezier(.45,0,.55,1) infinite;}
-      .packet.p2{animation-delay:1.6s}.packet.p3{animation-delay:3.2s}
+      .flow{fill:none;stroke:url(#track);stroke-width:3;stroke-linecap:round;stroke-dasharray:2 16;animation:travel 2.4s linear infinite}
+      .node{animation:breathe 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+      .n2{animation-delay:.45s}.n3{animation-delay:.9s}
+      .beam{transform-box:view-box;transform-origin:0 0;animation:sweep 4s linear infinite}
+      .b2{animation-duration:5.2s;animation-direction:reverse}.b3{animation-duration:4.6s}
+      .packet{filter:url(#glow);animation:packet 5s cubic-bezier(.45,0,.55,1) infinite}
+      .p2{animation-delay:1.6s}.p3{animation-delay:3.2s}.p4{animation-delay:2.4s}
+      .particle{filter:url(#softGlow);animation:twinkle 2.5s ease-in-out infinite alternate}
+      .q2{animation-delay:.5s}.q3{animation-delay:1s}.q4{animation-delay:1.5s}.q5{animation-delay:2s}
+      .ring{fill:none;stroke:#60a5fa;stroke-opacity:.35;stroke-width:1;transform-box:fill-box;transform-origin:center;animation:ripple 3s ease-out infinite}
+      .r2{animation-delay:1s}.r3{animation-delay:2s}
       @keyframes travel{to{stroke-dashoffset:-72}}
       @keyframes breathe{0%,100%{transform:scale(1);opacity:.88}50%{transform:scale(1.09);opacity:1}}
+      @keyframes sweep{to{transform:rotate(360deg)}}
       @keyframes packet{0%{transform:translateX(0);opacity:0}8%{opacity:1}90%{opacity:1}100%{transform:translateX(650px);opacity:0}}
-      @media(prefers-reduced-motion:reduce){.flow,.node,.packet{animation:none}.packet{display:none}}
+      @keyframes twinkle{from{opacity:.25;transform:scale(.7)}to{opacity:1;transform:scale(1.35)}}
+      @keyframes ripple{0%{transform:scale(.65);opacity:.65}100%{transform:scale(2.1);opacity:0}}
+      @media(prefers-reduced-motion:reduce){.flow,.node,.beam,.packet,.particle,.ring{animation:none}.packet,.ring{display:none}}
     </style>
   </defs>
-  <rect width="960" height="280" rx="24" fill="url(#bg)"/>
-  <circle cx="110" cy="30" r="100" fill="#ff3621" opacity=".06"/><circle cx="860" cy="260" r="130" fill="#eab308" opacity=".06"/>
-  <text x="44" y="54" fill="#f8fafc" font-size="20" font-weight="700">LIVE LAKEHOUSE DATA FLOW</text>
-  <text x="44" y="78" fill="#94a3b8" font-size="12">From raw records to trusted analytics</text>
-  <path class="route" d="M155 155H805"/><path class="flow" d="M155 155H805"/>
-  <g class="node"><circle cx="155" cy="155" r="34" fill="#ff3621" opacity=".14"/><circle cx="155" cy="155" r="23" fill="#111827" stroke="#ff3621" stroke-width="2"/><text x="155" y="160" fill="#fff" font-size="13" font-weight="700" text-anchor="middle">B</text><text x="155" y="211" fill="#fca5a5" font-size="14" font-weight="600" text-anchor="middle">BRONZE</text><text x="155" y="230" fill="#94a3b8" font-size="11" text-anchor="middle">Raw data</text></g>
-  <g class="node"><circle cx="480" cy="155" r="34" fill="#f59e0b" opacity=".14"/><circle cx="480" cy="155" r="23" fill="#111827" stroke="#f59e0b" stroke-width="2"/><text x="480" y="160" fill="#fff" font-size="13" font-weight="700" text-anchor="middle">S</text><text x="480" y="211" fill="#fcd34d" font-size="14" font-weight="600" text-anchor="middle">SILVER</text><text x="480" y="230" fill="#94a3b8" font-size="11" text-anchor="middle">Clean &amp; validate</text></g>
-  <g class="node"><circle cx="805" cy="155" r="34" fill="#eab308" opacity=".14"/><circle cx="805" cy="155" r="23" fill="#111827" stroke="#eab308" stroke-width="2"/><text x="805" y="160" fill="#fff" font-size="13" font-weight="700" text-anchor="middle">G</text><text x="805" y="211" fill="#fde047" font-size="14" font-weight="600" text-anchor="middle">GOLD</text><text x="805" y="230" fill="#94a3b8" font-size="11" text-anchor="middle">Analytics-ready</text></g>
-  <circle class="packet" cx="155" cy="155" r="5" fill="#fff"/><circle class="packet p2" cx="155" cy="155" r="4" fill="#fbbf24"/><circle class="packet p3" cx="155" cy="155" r="4" fill="#fb7185"/>
+  <rect width="960" height="320" rx="24" fill="url(#bg)"/>
+  <circle cx="110" cy="30" r="100" fill="#ff3621" opacity=".07"/><circle cx="860" cy="260" r="130" fill="#60a5fa" opacity=".08"/>
+  <text x="44" y="52" fill="#f8fafc" font-size="20" font-weight="700" letter-spacing="1">LIVE LAKEHOUSE DATA FLOW</text>
+  <text x="44" y="76" fill="#94a3b8" font-size="12">Particle streams · radio-beam sweeps · Bronze → Silver → Gold</text>
+  <path class="route" d="M155 175H805"/><path class="flow" d="M155 175H805"/>
+  <circle class="ring" cx="155" cy="175" r="31"/><circle class="ring r2" cx="480" cy="175" r="31"/><circle class="ring r3" cx="805" cy="175" r="31"/>
+  <g class="node n1" transform="translate(155 175)">
+    <path d="M0 0L0-69A69 69 0 0 1 48.8-48.8Z" fill="url(#beam)"/>
+    <g class="beam"><path d="M0 0L0-69A69 69 0 0 1 48.8-48.8Z" fill="url(#beam)"/></g>
+    <circle r="36" fill="#ff3621" opacity=".13"/><circle r="25" fill="#111827" stroke="#ff3621" stroke-width="2"/>
+    <text y="5" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">BRONZE</text>
+  </g>
+  <g class="node n2" transform="translate(480 175)">
+    <path d="M0 0L0-69A69 69 0 0 1 48.8-48.8Z" fill="url(#beam)"/>
+    <g class="beam b2"><path d="M0 0L0-69A69 69 0 0 1 48.8-48.8Z" fill="url(#beam)"/></g>
+    <circle r="36" fill="#f59e0b" opacity=".13"/><circle r="25" fill="#111827" stroke="#f59e0b" stroke-width="2"/>
+    <text y="5" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">SILVER</text>
+  </g>
+  <g class="node n3" transform="translate(805 175)">
+    <path d="M0 0L0-69A69 69 0 0 1 48.8-48.8Z" fill="url(#beam)"/>
+    <g class="beam b3"><path d="M0 0L0-69A69 69 0 0 1 48.8-48.8Z" fill="url(#beam)"/></g>
+    <circle r="36" fill="#a3e635" opacity=".13"/><circle r="25" fill="#111827" stroke="#a3e635" stroke-width="2"/>
+    <text y="5" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">GOLD</text>
+  </g>
+  <circle class="packet" cx="155" cy="175" r="5" fill="#fff"/><circle class="packet p2" cx="155" cy="175" r="4" fill="#fbbf24"/><circle class="packet p3" cx="155" cy="175" r="4" fill="#fb7185"/><circle class="packet p4" cx="155" cy="175" r="3" fill="#a3e635"/>
+  <circle class="particle" cx="88" cy="127" r="2.5" fill="#60a5fa"/><circle class="particle q2" cx="260" cy="225" r="2" fill="#fbbf24"/><circle class="particle q3" cx="355" cy="119" r="3" fill="#fb7185"/><circle class="particle q4" cx="620" cy="232" r="2.5" fill="#60a5fa"/><circle class="particle q5" cx="710" cy="113" r="2" fill="#a3e635"/>
+  <circle class="particle q3" cx="900" cy="130" r="2.5" fill="#fbbf24"/><circle class="particle q2" cx="90" cy="236" r="2" fill="#fb7185"/><circle class="particle q4" cx="560" cy="112" r="2" fill="#a3e635"/>
+  <text x="480" y="278" text-anchor="middle" fill="#94a3b8" font-size="12">Animated illustration · not a live pipeline connection</text>
 </svg>
