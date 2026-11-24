@@ -16,7 +16,7 @@
 
 ## Overview
 
-Databricks Lakehouse Studio is a **portfolio and learning project** that brings a sample data-engineering workflow and an interactive dashboard together. It demonstrates how sales records can move through Bronze, Silver, and Gold layers, with pipeline status, quality checks, lineage, governance concepts, and analytics surfaced in one interface.
+Databricks Lakehouse Studio is a **portfolio and learning project** that brings a sample data-engineering workflow and an interactive dashboard together. It demonstrates how sales records can move through a Bronze → Silver → Gold architecture and how checks, lineage, and analytics can be surfaced in a single interface.
 
 The repository combines Python data-pipeline modules with a React/TypeScript interface. The lakehouse workflow is implemented as a local demonstration; it is not, by itself, a production Databricks deployment.
 
@@ -28,17 +28,19 @@ The repository combines Python data-pipeline modules with a React/TypeScript int
 - **Analytics workspace:** explore datasets and issue read-only SQL against the local analytics store.
 - **Lineage and governance concepts:** view source-to-mart relationships and role-based access/PII-masking demonstrations.
 - **AI-assisted insights concept:** the interface supports an optional AI path and a deterministic fallback; configure external credentials securely before enabling any provider.
-- **Live motion background:** a custom Canvas particle network visualizes flowing data and responds to pipeline activity. Motion intensity is adjustable, and the animation respects the browser's reduced-motion preference.
+- **Live motion particles:** an animated particle network visualizes flowing data, moving packets, radar sweeps, and stage pulses across the lakehouse journey.
 
-## Live animation preview
-
-The animated diagram below brings the Bronze → Silver → Gold journey to life in the README. Glowing data packets travel along the pipeline, particles shimmer around the stages, and rotating radar-beam sweeps pulse from each layer node. This is a visual illustration, not a live connection to a running pipeline.
+## Live motion animation
 
 <p align="center">
-  <img src="assets/lakehouse-motion.svg" alt="Animated lakehouse data flow with particles and rotating radio-beam radar effects from Bronze through Silver to Gold" width="100%" />
+  <a href="assets/lakehouse-motion.svg">
+    <img src="assets/lakehouse-motion.svg" alt="Live animated lakehouse flow showing particles traveling from Bronze through Silver to Gold" width="100%" />
+  </a>
 </p>
 
-The interactive application background is implemented in [`src/components/ParticleCanvas.tsx`](src/components/ParticleCanvas.tsx) with the browser's HTML Canvas 2D API and `requestAnimationFrame`. The canvas adds moving particles, glowing data packets, connecting trails, and expanding signal rings; it reacts to pointer movement and pipeline activity. Reduced-motion preferences are respected.
+The live illustration shows glowing data packets moving between **Bronze**, **Silver**, and **Gold**, surrounded by floating particles, ripples, and animated radio-beam sweeps.
+
+The interactive application background is implemented in [`src/components/ParticleCanvas.tsx`](src/components/ParticleCanvas.tsx) using the HTML Canvas 2D API and `requestAnimationFrame`. The illustration respects `prefers-reduced-motion` and is not connected to a live pipeline.
 
 ## Architecture
 
@@ -88,7 +90,7 @@ The Python implementation is organized by responsibility under `src/`:
 - **Data layout:** CSV and JSON files in `lakehouse_storage/`
 - **Data platform concepts:** Databricks Lakehouse and Medallion architecture
 
-> The repository language breakdown is approximately **50.4% Python, 49.1% TypeScript, and 0.5% CSS**. Databricks is the inspiration and target platform concept; the checked-in sample pipeline uses local project components.
+> The repository language breakdown is approximately **50.3% Python, 49.2% TypeScript, and 0.5% CSS**. Databricks is the inspiration and target platform concept; the checked-in sample pipeline uses local storage for demonstration purposes.
 
 ## Repository contents
 
@@ -137,7 +139,7 @@ python -m unittest discover -s tests -v
 
 ### Current repository setup note
 
-The checked-in tree currently does not include a root-level `config.py`, a sample input-data directory, a Python dependency manifest, or a frontend `package.json`/lockfile and API server entry point. Review the scripts and configure the required data paths and dependencies for your environment before running the workflow.
+The checked-in tree currently does not include a root-level `config.py`, a sample input-data directory, a Python dependency manifest, or a frontend `package.json`/lockfile and API server entry point.
 
 ## Tests
 
