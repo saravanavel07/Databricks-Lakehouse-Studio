@@ -1,18 +1,27 @@
 <div align="center">
 
+<img src="https://cdn.simpleicons.org/databricks/FF3621" alt="Databricks logo" width="96" height="96" />
+
 # Databricks Lakehouse Studio
 
 ### A visual, local-first demonstration of a governed Medallion lakehouse workflow
 
 **Explore data. Run a pipeline. Inspect quality, lineage, and analytics—all from one studio-style interface.**
 
-[![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![React](https://img.shields.io/badge/React-UI-61DAFB?logo=react&logoColor=black)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-UI-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![SQLite](https://img.shields.io/badge/SQLite-local%20SQL-003B57?logo=sqlite&logoColor=white)](https://www.sqlite.org/)
-[![HTML Canvas](https://img.shields.io/badge/HTML-Canvas%202D-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
-[![CSS](https://img.shields.io/badge/CSS-styling-1572B6?logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
-[![Architecture](https://img.shields.io/badge/Architecture-Medallion-FF3621)](#-architecture)
+### Technology stack
+
+<a href="https://www.python.org/"><img src="https://cdn.simpleicons.org/python/3776AB" alt="Python" width="64" height="64" /></a>
+<a href="https://react.dev/"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="React" width="64" height="64" /></a>
+<a href="https://www.typescriptlang.org/"><img src="https://cdn.simpleicons.org/typescript/3178C6" alt="TypeScript" width="64" height="64" /></a>
+<a href="https://www.sqlite.org/"><img src="https://cdn.simpleicons.org/sqlite/003B57" alt="SQLite" width="64" height="64" /></a>
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API"><img src="https://cdn.simpleicons.org/html5/E34F26" alt="HTML5 Canvas" width="64" height="64" /></a>
+<a href="https://developer.mozilla.org/en-US/docs/Web/CSS"><img src="https://cdn.simpleicons.org/css3/1572B6" alt="CSS" width="64" height="64" /></a>
+<a href="https://www.databricks.com/"><img src="https://cdn.simpleicons.org/databricks/FF3621" alt="Databricks" width="64" height="64" /></a>
+
+<br />
+<strong>Python · React · TypeScript · SQLite · HTML Canvas · CSS · Databricks Lakehouse</strong>
+
+[![Architecture](https://img.shields.io/badge/Architecture-Medallion-FF3621?style=for-the-badge)](#-architecture)
 
 </div>
 
@@ -85,7 +94,7 @@ The Python implementation is organized by responsibility under `src/`:
 
 ## Technology stack
 
-The badges above identify technologies used in the checked-in source—not a claim that every optional runtime or cloud service is configured.
+The large logos above identify technologies used in the checked-in source—not a claim that every optional runtime or cloud service is configured.
 
 | Technology | Use in this project |
 | --- | --- |
