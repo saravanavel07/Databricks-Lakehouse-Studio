@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="https://cdn.simpleicons.org/databricks/FF3621" alt="Databricks logo" width="96" height="96" />
-
 # Databricks Lakehouse Studio
 
 ### A visual, local-first demonstration of a governed Medallion lakehouse workflow
@@ -14,14 +12,13 @@
 <a href="https://react.dev/"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="React" width="64" height="64" /></a>
 <a href="https://www.typescriptlang.org/"><img src="https://cdn.simpleicons.org/typescript/3178C6" alt="TypeScript" width="64" height="64" /></a>
 <a href="https://www.sqlite.org/"><img src="https://cdn.simpleicons.org/sqlite/003B57" alt="SQLite" width="64" height="64" /></a>
-<a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API"><img src="https://cdn.simpleicons.org/html5/E34F26" alt="HTML5 Canvas" width="64" height="64" /></a>
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API"><img src="https://cdn.simpleicons.org/html5/E34F26" alt="HTML Canvas" width="64" height="64" /></a>
 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS"><img src="https://cdn.simpleicons.org/css3/1572B6" alt="CSS" width="64" height="64" /></a>
-<a href="https://www.databricks.com/"><img src="https://cdn.simpleicons.org/databricks/FF3621" alt="Databricks" width="64" height="64" /></a>
 
 <br />
-<strong>Python · React · TypeScript · SQLite · HTML Canvas · CSS · Databricks Lakehouse</strong>
-
-[![Architecture](https://img.shields.io/badge/Architecture-Medallion-FF3621?style=for-the-badge)](#-architecture)
+<strong>Python · React · TypeScript · SQLite · HTML Canvas · CSS</strong>
+<br /><br />
+<a href="#-architecture"><img src="https://img.shields.io/badge/Architecture-Medallion-FF3621?style=for-the-badge" alt="Architecture: Medallion" /></a>
 
 </div>
 
