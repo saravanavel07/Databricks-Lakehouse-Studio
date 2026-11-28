@@ -7,7 +7,11 @@
 **Explore data. Run a pipeline. Inspect quality, lineage, and analytics—all from one studio-style interface.**
 
 [![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-React-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-UI-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-UI-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![SQLite](https://img.shields.io/badge/SQLite-local%20SQL-003B57?logo=sqlite&logoColor=white)](https://www.sqlite.org/)
+[![HTML Canvas](https://img.shields.io/badge/HTML-Canvas%202D-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
+[![CSS](https://img.shields.io/badge/CSS-styling-1572B6?logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![Architecture](https://img.shields.io/badge/Architecture-Medallion-FF3621)](#-architecture)
 
 </div>
@@ -16,7 +20,7 @@
 
 ## Overview
 
-Databricks Lakehouse Studio is a **portfolio and learning project** that brings a sample data-engineering workflow and an interactive dashboard together. It demonstrates how sales records can move through a Bronze → Silver → Gold architecture and how checks, lineage, and analytics can be surfaced in a single interface.
+Databricks Lakehouse Studio is a **portfolio and learning project** that brings a sample data-engineering workflow and an interactive dashboard together. It demonstrates how sales records can move through a Bronze → Silver → Gold architecture and how quality checks, lineage, and analytics can be surfaced in one interface.
 
 The repository combines Python data-pipeline modules with a React/TypeScript interface. The lakehouse workflow is implemented as a local demonstration; it is not, by itself, a production Databricks deployment.
 
@@ -28,19 +32,17 @@ The repository combines Python data-pipeline modules with a React/TypeScript int
 - **Analytics workspace:** explore datasets and issue read-only SQL against the local analytics store.
 - **Lineage and governance concepts:** view source-to-mart relationships and role-based access/PII-masking demonstrations.
 - **AI-assisted insights concept:** the interface supports an optional AI path and a deterministic fallback; configure external credentials securely before enabling any provider.
-- **Live motion particles:** an animated particle network visualizes flowing data, moving packets, radar sweeps, and stage pulses across the lakehouse journey.
+- **Live motion particles:** an animated particle network visualizes flowing data, moving packets, and pulsing nodes across the lakehouse journey.
 
 ## Live motion animation
 
 <p align="center">
   <a href="assets/lakehouse-motion.svg">
-    <img src="assets/lakehouse-motion.svg" alt="Live animated lakehouse flow showing particles traveling from Bronze through Silver to Gold" width="100%" />
+    <img src="assets/lakehouse-motion.svg" alt="Animated lakehouse flow showing particles traveling from Bronze through Silver to Gold" width="100%" />
   </a>
 </p>
 
-The live illustration shows glowing data packets moving between **Bronze**, **Silver**, and **Gold**, surrounded by floating particles, ripples, and animated radio-beam sweeps.
-
-The interactive application background is implemented in [`src/components/ParticleCanvas.tsx`](src/components/ParticleCanvas.tsx) using the HTML Canvas 2D API and `requestAnimationFrame`. The illustration respects `prefers-reduced-motion` and is not connected to a live pipeline.
+The illustration depicts glowing data packets moving between **Bronze**, **Silver**, and **Gold**, surrounded by floating particles, ripples, and animated sweeps. The interactive application background is implemented in [`src/components/ParticleCanvas.tsx`](src/components/ParticleCanvas.tsx) with the HTML Canvas 2D API and `requestAnimationFrame`. It includes small drifting particles, connecting lines, glowing data packets with trails, pulsing nodes, pointer interaction, and a faster/brighter mode while a pipeline is running. It respects the browser's `prefers-reduced-motion` setting. The animation is a visual effect and is not connected to a live data pipeline.
 
 ## Architecture
 
@@ -58,7 +60,6 @@ Sample sales CSV
       │
       ▼
  Gold — curated analytical marts
-      │
       ├── Daily revenue
       ├── Product performance
       ├── Regional performance
@@ -80,17 +81,24 @@ The Python implementation is organized by responsibility under `src/`:
 | `src/lineage` / `src/governance` | Lineage and governance demonstrations |
 | `src/ai` | AI-assistant logic |
 | `src/App.tsx` | React/TypeScript studio interface |
+| `src/components/ParticleCanvas.tsx` | Canvas-based animated background |
 
-## Technology
+## Technology stack
 
-- **Backend and data pipeline:** Python
-- **Frontend:** React and TypeScript
-- **UI details visible in source:** Tailwind-style utility classes, `lucide-react` icons, and custom Canvas animation
-- **Local persistence / SQL demonstration:** SQLite
-- **Data layout:** CSV and JSON files in `lakehouse_storage/`
-- **Data platform concepts:** Databricks Lakehouse and Medallion architecture
+The badges above identify technologies used in the checked-in source—not a claim that every optional runtime or cloud service is configured.
 
-> The repository language breakdown is approximately **50.3% Python, 49.2% TypeScript, and 0.5% CSS**. Databricks is the inspiration and target platform concept; the checked-in sample pipeline uses local storage for demonstration purposes.
+| Technology | Use in this project |
+| --- | --- |
+| **Python** | Data ingestion, Medallion pipeline stages, orchestration, quality checks, and tests |
+| **React** | Component-based dashboard interface |
+| **TypeScript** | Frontend application and UI component code |
+| **HTML Canvas 2D API** | Custom particle and data-flow animation, drawn with `requestAnimationFrame` |
+| **CSS** | Interface styling; utility-class styling patterns are present in the UI |
+| **SQLite** | Local SQL and analytics demonstration |
+| **CSV / JSON** | Sample data and local lakehouse artifacts |
+| **Databricks Lakehouse / Medallion architecture** | Platform concepts and workflow modeled by the project; a cloud connector must be configured separately |
+
+> Repository language composition: approximately **50.3% Python, 49.2% TypeScript, and 0.5% CSS**. The checked-in sample pipeline uses local storage for demonstration purposes.
 
 ## Repository contents
 
@@ -139,7 +147,7 @@ python -m unittest discover -s tests -v
 
 ### Current repository setup note
 
-The checked-in tree currently does not include a root-level `config.py`, a sample input-data directory, a Python dependency manifest, or a frontend `package.json`/lockfile and API server entry point.
+The checked-in tree currently does not include a root-level `config.py`, a sample input-data directory, a Python dependency manifest, or a frontend `package.json`/lockfile and API server entry point. Add and configure these components as needed for your environment before attempting to run the full interface or pipeline.
 
 ## Tests
 
